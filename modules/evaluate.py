@@ -18,6 +18,7 @@ class PasswordEvaluator:
         Parameters:
         - password (str): The password to be evaluated.
         """
+        
         self.password = password
 
     # Evaluates the strength of the password and returns a strength grade

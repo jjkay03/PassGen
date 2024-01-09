@@ -1,4 +1,4 @@
 # All modules imports
 
-from .generator import *
 from .evaluate import *
+from .generator import *
