@@ -19,30 +19,12 @@ app.resizable(False, False)
 ttk.Style().load_user_themes(file="assets/themes/ttkb-themes.json")  
 
 
-# --------------------------------- Functions -------------------------------- #
-# Function to change theme
-def change_theme(theme):
-    # Dark theme
-    if theme=="dark":
-        app.iconbitmap("assets/icon/icon-white.ico")  # Load icon
-        ctk.set_appearance_mode("dark")  # Set ctk theme
-        ctk.set_default_color_theme("green")  # Set default ctk color
-        ttk.Style().theme_use("darkly-ctk")  # Set the ttkbootstrap theme
-    
-    # Light theme
-    if theme=="light":
-        app.iconbitmap("assets/icon/icon-black.ico")  # Load icon
-        ctk.set_appearance_mode("light") # Set ctk theme
-        ctk.set_default_color_theme("green")  # Set default ctk color
-        ttk.Style().theme_use("litera-ctk")  # Set the ttkbootstrap theme
-
-
 # ---------------------------------- Widgets --------------------------------- #
 
 
 
 # ------------------------------------ Run ----------------------------------- #
-change_theme("dark")  # Set default theme
+ChangeTheme(app).set_dark_theme()
 app.mainloop()
 
 
