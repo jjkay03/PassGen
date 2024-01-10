@@ -6,6 +6,8 @@ from modules import *  # Import all custom modules in /modules dir
 
 import tkinter as tk
 import customtkinter as ctk
+from PIL import Image
+import pyperclip
 
 
 # ----------------------------------- Setup ---------------------------------- #
@@ -17,21 +19,36 @@ app.resizable(False, False)
 
 
 # --------------------------------- Variable --------------------------------- #
+# Variables
+password = "Password"
+
 # Tk variables
-password_tkvar = tk.StringVar(value="Pasword")
+password_tkvar = tk.StringVar(value=password)
 password_length_tkvar = tk.IntVar(value=15)
 password_uppercase_tkvar = tk.BooleanVar(value=True)
 password_lowercase_tkvar = tk.BooleanVar(value=True)
 password_numbers_tkvar = tk.BooleanVar(value=True)
 password_symbols_tkvar = tk.BooleanVar(value=True)
 
+btn_img_generate = ctk.CTkImage(
+    Image.open("assets/buttons/generate-black.png").resize((400,400)),
+    Image.open("assets/buttons/generate-white.png").resize((400,400))
+)
+btn_img_copy = ctk.CTkImage(
+    Image.open("assets/buttons/copy-black.png").resize((400,400)),
+    Image.open("assets/buttons/copy-white.png").resize((400,400))
+)
+
 
 # --------------------------------- Functions -------------------------------- #
+# Function that generates password and update app
 def generate_password():
+    global password
+
     # Generate password using generator module
     password = PasswordGenerator(
         length=password_length_tkvar.get(),
-        uppercase=password_length_tkvar.get(),
+        uppercase=password_uppercase_tkvar.get(),
         lowercase=password_lowercase_tkvar.get(),
         numbers=password_numbers_tkvar.get(),
         symbols=password_symbols_tkvar.get()
@@ -69,6 +86,8 @@ def generate_password():
 frame_password = ctk.CTkFrame(app, corner_radius=10)
 label_password = ctk.CTkLabel(frame_password, textvariable=password_tkvar, font=("Arial", 25))
 progressbar_password = ctk.CTkProgressBar(frame_password, height=10, width=785, progress_color="#59c934", fg_color="")
+button_password_1 = ctk.CTkButton(frame_password, image=btn_img_generate, height=50, width=50, hover_color=("#c9c9c9","#242424"), corner_radius=20 , fg_color="transparent", text="", command=generate_password)
+button_password_2 = ctk.CTkButton(frame_password, image=btn_img_copy, height=50, width=50, hover_color=("#c9c9c9","#242424"), corner_radius=20, fg_color="transparent", text="", command=(lambda: pyperclip.copy(password)))
 
 # Frame customize
 frame_customize = ctk.CTkFrame(app, corner_radius=10)
@@ -95,6 +114,8 @@ app.rowconfigure((0,1,2,3,4), weight=1, uniform="a")
 frame_password.grid(column=0, row=0, sticky="nsew", padx=10, pady=10)
 label_password.place(relx=0.02, rely=0.45, anchor="w")
 progressbar_password.place(relx=0.5, rely=0.98, anchor="center")
+button_password_1.pack(side="right", padx=5)
+button_password_2.pack(side="right")
 
 # Frame customize
 frame_customize.grid(column=0, row=1, rowspan=5, sticky="nsew", padx=10, pady=10)
@@ -102,7 +123,7 @@ label_customize_1.place(relx=0.02, rely=0.08, anchor="w")
 label_customize_2.place(relx=0.02, rely=0.40, anchor="w")
 label_customize_3.place(relx=0.02, rely=0.5, anchor="w")
 slider_customize.place(relx=0.06, rely=0.5, anchor="w")
-button_debug.place(relx=0.02, rely=0.9, anchor="w")
+#button_debug.place(relx=0.02, rely=0.9, anchor="w")
 
 # Frame customize checbox
 frame_customize.columnconfigure((0,1,3), weight=1, uniform="a")
