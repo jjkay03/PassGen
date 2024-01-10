@@ -41,20 +41,23 @@ def generate_password():
     password_grade = PasswordEvaluator(password).evaluate_strength()
     
     # Determine progress bar color
-    if password_grade <= 25:
+    if password_grade <= 20:
         progressbar_color = "#e74c3c"
-    if password_grade >= 25:
+    if password_grade >= 20:
         progressbar_color = "#f36512"
-    if password_grade >= 50:
-        progressbar_color = "#f39c12"
-    if password_grade >= 75:
-        progressbar_color = "#00bc8c"
+    if password_grade >= 40:
+        progressbar_color = "#ffbd2e"
+    if password_grade >= 60:
+        progressbar_color = "#92c934"
+    if password_grade >= 80:
+        progressbar_color = "#59c934"
 
     # Update widgets
     password_tkvar.set(password)
     progressbar_password.set(password_grade/100)
     progressbar_password.configure(progress_color=progressbar_color)
 
+    print()
     print("PASSWORD:", password)
     print("GRADE:", password_grade)
 
@@ -65,22 +68,22 @@ def generate_password():
 # Frame password
 frame_password = ctk.CTkFrame(app, corner_radius=10)
 label_password = ctk.CTkLabel(frame_password, textvariable=password_tkvar, font=("Arial", 25))
-progressbar_password = ctk.CTkProgressBar(frame_password, height=10, width=785, progress_color="#00bc8c", fg_color="")
+progressbar_password = ctk.CTkProgressBar(frame_password, height=10, width=785, progress_color="#59c934", fg_color="")
 
 # Frame customize
 frame_customize = ctk.CTkFrame(app, corner_radius=10)
 label_customize_1 = ctk.CTkLabel(frame_customize, text="Customize Password", font=("Arial Bold", 20))
 label_customize_2 = ctk.CTkLabel(frame_customize, text="Password Length", font=("Arial", 18))
 label_customize_3 = ctk.CTkLabel(master=frame_customize, textvariable=password_length_tkvar, corner_radius=5, fg_color=("#c9c9c9","#242424"), font=("Arial", 18))
-slider_customize = ctk.CTkSlider(master=frame_customize, from_ = 1, to = 40, width=300, variable=password_length_tkvar, progress_color="#00bc8c", button_color="#008966", button_hover_color="#006f53", fg_color=("#c9c9c9","#242424"))
-button_debug = ctk.CTkButton(master=frame_customize, text="DEBUG", command=generate_password)
+slider_customize = ctk.CTkSlider(master=frame_customize, from_ = 1, to = 40, width=300, variable=password_length_tkvar, progress_color="#59c934", button_color="#429526", button_hover_color="#2b6218", fg_color=("#c9c9c9","#242424"))
+button_debug = ctk.CTkButton(master=frame_customize, text="DEBUG", command=generate_password, fg_color="#429526")
 
 # Frame customize checbox
 frame_checkbox = ctk.CTkFrame(frame_customize, fg_color="transparent", corner_radius=10)
-checkbox_customize_1 = ctk.CTkCheckBox(master=frame_checkbox, variable=password_uppercase_tkvar, text="Uppercase", border_width=2, fg_color="#008966", hover_color="#006f53", font=("Arial", 18))
-checkbox_customize_2 = ctk.CTkCheckBox(master=frame_checkbox, variable=password_lowercase_tkvar, text="Lowercase", border_width=2, fg_color="#008966", hover_color="#006f53", font=("Arial", 18))
-checkbox_customize_3 = ctk.CTkCheckBox(master=frame_checkbox, variable=password_numbers_tkvar, text="Numbers", border_width=2, fg_color="#008966", hover_color="#006f53", font=("Arial", 18))
-checkbox_customize_4 = ctk.CTkCheckBox(master=frame_checkbox, variable=password_symbols_tkvar, text="Symbols", border_width=2, fg_color="#008966", hover_color="#006f53", font=("Arial", 18))
+checkbox_customize_1 = ctk.CTkCheckBox(master=frame_checkbox, variable=password_uppercase_tkvar, text="Uppercase", border_width=2, fg_color="#429526", hover_color="#2b6218", font=("Arial", 18))
+checkbox_customize_2 = ctk.CTkCheckBox(master=frame_checkbox, variable=password_lowercase_tkvar, text="Lowercase", border_width=2, fg_color="#429526", hover_color="#2b6218", font=("Arial", 18))
+checkbox_customize_3 = ctk.CTkCheckBox(master=frame_checkbox, variable=password_numbers_tkvar, text="Numbers", border_width=2, fg_color="#429526", hover_color="#2b6218", font=("Arial", 18))
+checkbox_customize_4 = ctk.CTkCheckBox(master=frame_checkbox, variable=password_symbols_tkvar, text="Symbols", border_width=2, fg_color="#429526", hover_color="#2b6218", font=("Arial", 18))
 
 
 # ---------------------------------- Layout ---------------------------------- #
