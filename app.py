@@ -21,6 +21,7 @@ app.resizable(False, False)
 # --------------------------------- Variable --------------------------------- #
 # Variables
 password = "Password"
+theme = ChangeTheme(app)
 
 # Tk variables
 password_tkvar = tk.StringVar(value=password)
@@ -137,9 +138,15 @@ checkbox_customize_3.place(relx=0.4, rely=0.25, anchor="nw")
 checkbox_customize_4.place(relx=0.4, rely=0.35, anchor="nw")
 
 
+# ---------------------------------- Events ---------------------------------- #
+app.bind('<Control-t>', (lambda event: theme.toggle_theme()))
+app.bind('<Control-c>', (lambda event: pyperclip.copy(password)))
+app.bind('<Control-g>', (lambda event: generate_password()))
+
+
 # ------------------------------------ Run ----------------------------------- #
 # Set default theme
-ChangeTheme(app).set_dark_theme()
+theme.set_dark_theme()
 #ChangeTheme(app).set_light_theme()
 
 # Generate first password
@@ -147,7 +154,3 @@ generate_password()
 
 # Run the app
 app.mainloop()
-
-# Test
-#generated_password = PasswordGenerator(length=15).generate_password()
-#password_grade = PasswordEvaluator(generated_password).evaluate_strength()
