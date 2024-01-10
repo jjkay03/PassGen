@@ -19,6 +19,10 @@ app.resizable(False, False)
 # Widget variables
 password_tkvar = tk.StringVar(value=PasswordGenerator(length=40).generate_password())
 password_length_tkvar = tk.IntVar(value=15)
+password_uppercase_tkvar = tk.BooleanVar(value=True)
+password_lowercase_tkvar = tk.BooleanVar(value=True)
+password_numbers_tkvar = tk.BooleanVar(value=True)
+password_symbols_tkvar = tk.BooleanVar(value=True)
 
 # Frame password
 frame_password = ctk.CTkFrame(app, corner_radius=10)
@@ -48,6 +52,13 @@ slider_customize = ctk.CTkSlider(
     fg_color=("#c9c9c9","#242424")
     )
 
+# Frame customize checbox
+frame_checkbox = ctk.CTkFrame(frame_customize, fg_color="transparent", corner_radius=10)
+checkbox_customize_1 = ctk.CTkCheckBox(master=frame_checkbox, variable=password_uppercase_tkvar, text="Uppercase", border_width=2, fg_color="#008966", hover_color="#006f53", font=("Arial", 18))
+checkbox_customize_2 = ctk.CTkCheckBox(master=frame_checkbox, variable=password_lowercase_tkvar, text="Lowercase", border_width=2, fg_color="#008966", hover_color="#006f53", font=("Arial", 18))
+checkbox_customize_3 = ctk.CTkCheckBox(master=frame_checkbox, variable=password_numbers_tkvar, text="Numbers", border_width=2, fg_color="#008966", hover_color="#006f53", font=("Arial", 18))
+checkbox_customize_4 = ctk.CTkCheckBox(master=frame_checkbox, variable=password_symbols_tkvar, text="Symbols", border_width=2, fg_color="#008966", hover_color="#006f53", font=("Arial", 18))
+
 
 # ---------------------------------- Layout ---------------------------------- #
 # Configure app grid
@@ -65,6 +76,16 @@ label_customize_1.place(relx=0.02, rely=0.08, anchor="w")
 label_customize_2.place(relx=0.02, rely=0.40, anchor="w")
 label_customize_3.place(relx=0.02, rely=0.5, anchor="w")
 slider_customize.place(relx=0.06, rely=0.5, anchor="w")
+
+# Frame customize checbox
+frame_customize.columnconfigure((0,1,3), weight=1, uniform="a")
+frame_customize.rowconfigure(0, weight=1, uniform="a")
+frame_checkbox.grid(column=3, row=0, sticky="nsew", padx=10, pady=10)
+checkbox_customize_1.place(relx=0.4, rely=0.05, anchor="nw")
+checkbox_customize_2.place(relx=0.4, rely=0.15, anchor="nw")
+checkbox_customize_3.place(relx=0.4, rely=0.25, anchor="nw")
+checkbox_customize_4.place(relx=0.4, rely=0.35, anchor="nw")
+
 
 
 # ------------------------------------ Run ----------------------------------- #
