@@ -1,2 +1,5 @@
+# Ignore files
+auto-py-to-exe-config.json
+
 # Ignore everything in folders
 modules/__pycache__/*
