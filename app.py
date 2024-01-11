@@ -83,6 +83,31 @@ def generate_password():
 
     return password
 
+# Function that maskes sure at least one checkbox is clicked
+def update_checkboxes_state(checkbox):
+    # Get the current state of the clicked checkbox
+    current_state = checkbox.get()
+
+    # Check the state of each checkbox
+    states = [
+        checkbox_customize_1.get(),
+        checkbox_customize_2.get(),
+        checkbox_customize_3.get(),
+        checkbox_customize_4.get()
+    ]
+
+    # If only one checkbox is True, disable it
+    if states.count(True) == 1:
+        for cb in [checkbox_customize_1, checkbox_customize_2, checkbox_customize_3, checkbox_customize_4]:
+            if cb.get():
+                cb.configure(state=tk.DISABLED)
+    else:
+        # Enable all checkboxes
+        checkbox_customize_1.configure(state=tk.NORMAL)
+        checkbox_customize_2.configure(state=tk.NORMAL)
+        checkbox_customize_3.configure(state=tk.NORMAL)
+        checkbox_customize_4.configure(state=tk.NORMAL)
+
 
 # ---------------------------------- Widgets --------------------------------- #
 # Frame password
@@ -102,10 +127,10 @@ button_debug = ctk.CTkButton(master=frame_customize, text="DEBUG", command=gener
 
 # Frame customize checbox
 frame_checkbox = ctk.CTkFrame(frame_customize, fg_color="transparent", corner_radius=10)
-checkbox_customize_1 = ctk.CTkCheckBox(master=frame_checkbox, variable=password_uppercase_tkvar, text="Uppercase", border_width=2, fg_color="#429526", hover_color="#2b6218", font=("Arial", 18))
-checkbox_customize_2 = ctk.CTkCheckBox(master=frame_checkbox, variable=password_lowercase_tkvar, text="Lowercase", border_width=2, fg_color="#429526", hover_color="#2b6218", font=("Arial", 18))
-checkbox_customize_3 = ctk.CTkCheckBox(master=frame_checkbox, variable=password_numbers_tkvar, text="Numbers", border_width=2, fg_color="#429526", hover_color="#2b6218", font=("Arial", 18))
-checkbox_customize_4 = ctk.CTkCheckBox(master=frame_checkbox, variable=password_symbols_tkvar, text="Symbols", border_width=2, fg_color="#429526", hover_color="#2b6218", font=("Arial", 18))
+checkbox_customize_1 = ctk.CTkCheckBox(master=frame_checkbox, variable=password_uppercase_tkvar, text="Uppercase", border_width=2, fg_color="#429526", hover_color="#2b6218", font=("Arial", 18), command=(lambda: update_checkboxes_state(checkbox_customize_1)))
+checkbox_customize_2 = ctk.CTkCheckBox(master=frame_checkbox, variable=password_lowercase_tkvar, text="Lowercase", border_width=2, fg_color="#429526", hover_color="#2b6218", font=("Arial", 18), command=(lambda: update_checkboxes_state(checkbox_customize_2)))
+checkbox_customize_3 = ctk.CTkCheckBox(master=frame_checkbox, variable=password_numbers_tkvar, text="Numbers", border_width=2, fg_color="#429526", hover_color="#2b6218", font=("Arial", 18), command=(lambda: update_checkboxes_state(checkbox_customize_3)))
+checkbox_customize_4 = ctk.CTkCheckBox(master=frame_checkbox, variable=password_symbols_tkvar, text="Symbols", border_width=2, fg_color="#429526", hover_color="#2b6218", font=("Arial", 18), command=(lambda: update_checkboxes_state(checkbox_customize_4)))
 
 
 # ---------------------------------- Layout ---------------------------------- #
